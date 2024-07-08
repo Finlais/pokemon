@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
-  const [pokemon, setPokemon] = useState<Object>({});
+  const [pokemon, setPokemon] = useState({} as Pokemon);
   const [name, setName] = useState<string>("");
 
   const calc = (name: string) => {
@@ -22,7 +22,7 @@ export default function HomeScreen() {
     fetchPokemon(num);
   };
 
-  const fetchPokemon = async (num) => {
+  const fetchPokemon = async (num: number) => {
     console.log("Request");
     try {
       const response = await fetch(
@@ -42,17 +42,24 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center" }}>
+      <Text
+        style={{
+          fontSize: 30,
+          margin: 10,
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
         Quel Pokemon es-tu ?
       </Text>
-      <Text style={{ fontSize: 16, textAlign: "center" }}>
+      <Text style={{ fontSize: 20, textAlign: "center" }}>
         {pokemon.name?.fr}
       </Text>
       <Image
         style={{
           width: "50%",
           height: "50%",
-          margin: 8,
+          margin: 20,
           resizeMode: "contain",
         }}
         source={{ uri: pokemon.sprites?.regular }}
@@ -61,6 +68,7 @@ export default function HomeScreen() {
       <TextInput
         value={name}
         onChangeText={(text) => setName(text)}
+        placeholder="Entrer votre nom"
         style={{
           margin: 8,
           padding: 8,
