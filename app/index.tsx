@@ -55,6 +55,7 @@ export default function HomeScreen() {
       </Text>
       <Text style={{ fontSize: 20, textAlign: "center" }}>
         {pokemon.name?.fr}
+        {isShiny ? " shiny" : ""}
       </Text>
       <Image
         style={{
