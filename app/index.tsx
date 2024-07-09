@@ -63,7 +63,9 @@ export default function HomeScreen() {
           margin: 20,
           resizeMode: "contain",
         }}
-        source={{ uri: pokemon.sprites?.regular }}
+        source={{
+          uri: isShiny ? pokemon.sprites?.regular : pokemon.sprites?.shiny,
+        }}
       />
       <Button
         title={isShiny ? "○ Normal ○ " : "♦ Shiny ♦"}
