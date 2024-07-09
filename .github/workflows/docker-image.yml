@@ -2,19 +2,19 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build -t europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon .
-      run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon
-      run: gcloud run deploy --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon service-student-arnaud-dev -- project pokedevops
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build -t europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon .
+      - name: Push the Docker image
+        run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon
+      - name: Deploy the Docker image on cloud
+        run: gcloud run deploy --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon service-student-arnaud-dev -- project pokedevops
