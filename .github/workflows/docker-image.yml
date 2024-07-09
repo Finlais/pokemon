@@ -19,7 +19,7 @@ jobs:
 
       - name: Authenticate with Google Cloud
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          KEYGCLOUD: ${{ secrets.KEYGCLOUD }}
         run: |
           echo "${{ secrets.KEYGCLOUD }}" > "${HOME}/gcloud-key.json"
           gcloud auth activate-service-account --key-file="${HOME}/gcloud-key.json"
