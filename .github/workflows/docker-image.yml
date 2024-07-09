@@ -27,4 +27,4 @@ jobs:
         run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon
 
       - name: Deploy to Google Cloud Run
-        run: gcloud run deploy service-student-arnaud-dev --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon --project pokedevops
+        run: gcloud run deploy service-student-arnaud-dev --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon --project pokedevops --region europe-west9 --allow-unauthenticated
