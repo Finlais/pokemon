@@ -25,8 +25,11 @@ FROM nginx:alpine
 # Copier les fichiers de l'application construits dans le répertoire par défaut de Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exposer le port 80
-EXPOSE 80
+# Modifier la configuration par défaut de Nginx pour écouter sur le port 8080
+RUN sed -i 's/listen 80;/listen 8080;/' /etc/nginx/conf.d/default.conf
+
+# Exposer le port 8080
+EXPOSE 8080
 
 # Démarrer Nginx
 CMD ["nginx", "-g", "daemon off;"]
