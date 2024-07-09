@@ -11,12 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Google Container Registry
+        env:
+          GCP_PROJECT: ${{ secrets.KEYGCLOUD }}
+        run: |
+          gcloud auth activate-service-account $GCP_PROJECT
+
       - name: Build the Docker image
         run: docker build -t europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon .
+
       - name: Push the Docker image
         run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon
-      - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=#{{secrets.KEYGCLOUD}}
-      - name: Deploy the Docker image on cloud
+
+      - name: Deploy to Cloud Run
         run: gcloud run deploy --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon service-student-arnaud-dev -- project pokedevops
