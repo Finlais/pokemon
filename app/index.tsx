@@ -64,25 +64,25 @@ export default function HomeScreen() {
           resizeMode: "contain",
         }}
         source={{
-          uri: isShiny ? pokemon.sprites?.regular : pokemon.sprites?.shiny,
+          uri: isShiny ? pokemon.sprites?.shiny : pokemon.sprites?.regular,
         }}
       />
       <Button
         title={isShiny ? "○ Normal ○ " : "♦ Shiny ♦"}
         onPress={() => setIsShiny(!isShiny)}
       />
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flex: 1, flexDirection: "column", marginTop: 10 }}>
         <Text style={{ fontSize: 16 }}>Votre nom :</Text>
         <TextInput
           value={name}
           onChangeText={(text) => setName(text)}
           placeholder="Entrer votre nom"
           style={{
-            margin: 8,
+            marginTop: 5,
             padding: 8,
             borderWidth: 1,
             borderRadius: 8,
-            width: "40%",
+            width: "100%",
           }}
         />
       </View>
