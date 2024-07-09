@@ -48,7 +48,6 @@ export default function HomeScreen() {
           margin: 10,
           fontWeight: "bold",
           textAlign: "center",
-          color: "yellow",
         }}
       >
         Quel Pokemon es-tu ?
@@ -65,7 +64,7 @@ export default function HomeScreen() {
         }}
         source={{ uri: pokemon.sprites?.regular }}
       />
-      <Text style={{ fontSize: 16, textAlign: "center" }}>Votre nom :</Text>
+      <Text style={{ fontSize: 16, textAlign: "right" }}>Votre nom :</Text>
       <TextInput
         value={name}
         onChangeText={(text) => setName(text)}
