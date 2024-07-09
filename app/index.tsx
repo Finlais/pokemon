@@ -12,6 +12,7 @@ import {
 export default function HomeScreen() {
   const [pokemon, setPokemon] = useState({} as Pokemon);
   const [name, setName] = useState<string>("");
+  const [isShiny, setIsShiny] = useState<boolean>(false);
 
   const calc = (name: string) => {
     let sum = 0;
@@ -64,19 +65,25 @@ export default function HomeScreen() {
         }}
         source={{ uri: pokemon.sprites?.regular }}
       />
-      <Text style={{ fontSize: 16, textAlign: "right" }}>Votre nom :</Text>
-      <TextInput
-        value={name}
-        onChangeText={(text) => setName(text)}
-        placeholder="Entrer votre nom"
-        style={{
-          margin: 8,
-          padding: 8,
-          borderWidth: 1,
-          borderRadius: 8,
-          width: "40%",
-        }}
+      <Button
+        title={isShiny ? "○ Normal ○ " : "♦ Shiny ♦"}
+        onPress={() => setIsShiny(!isShiny)}
       />
+      <View style={{ flexDirection: "row" }}>
+        <Text style={{ fontSize: 16 }}>Votre nom :</Text>
+        <TextInput
+          value={name}
+          onChangeText={(text) => setName(text)}
+          placeholder="Entrer votre nom"
+          style={{
+            margin: 8,
+            padding: 8,
+            borderWidth: 1,
+            borderRadius: 8,
+            width: "40%",
+          }}
+        />
+      </View>
     </View>
   );
 }
