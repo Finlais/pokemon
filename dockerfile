@@ -41,11 +41,14 @@ RUN echo 'server { \
 # Exposer le port 8080
 EXPOSE 8080
 
+# Copier le script d'entrée
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 # Ajouter les permissions d'exécution
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Copier le script d'entrée
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# Définir le point d'entrée pour utiliser /bin/sh ou /bin/bash
+ENTRYPOINT ["/bin/sh", "-c"]
 
 # Démarrer Nginx
 CMD ["/usr/local/bin/entrypoint.sh"]
