@@ -1,9 +1,9 @@
-name: Build, Push & Deploy Docker Image to Google Cloud
+name: Deploy on Tag
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "*"
 
 jobs:
   build-and-push:
