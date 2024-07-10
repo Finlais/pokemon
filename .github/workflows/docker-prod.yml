@@ -1,0 +1,49 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow for prod
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      tag:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: "Enter the tag to deploy in production"
+        # Default value if no value is explicitly provided
+        required: true
+        # The data type of the input
+        type: string
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: "${{ secrets.KEYGCLOUD }}"
+
+      - name: Configure Docker for Google Cloud
+        run: |
+          gcloud auth configure-docker europe-west9-docker.pkg.dev
+
+      - name: Get the tag
+        id: get-tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Echo the tag written by the user
+        run: echo ${{ inputs.name }}
+
+      - name: Docker pull
+        run: docker pull europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }}
+
+      - name: Push the Docker image
+        run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }}
+
+      - name: Deploy to Google Cloud Run
+        run: gcloud run deploy service-student-arnaud-prod --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }} --project pokedevops --region europe-west9 --allow-unauthenticated
