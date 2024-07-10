@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 
+import version from "./version.json";
+
 export default function HomeScreen() {
   const [pokemon, setPokemon] = useState({} as Pokemon);
   const [name, setName] = useState<string>("");
@@ -87,7 +89,7 @@ export default function HomeScreen() {
           }}
         />
       </View>
-      <Text style={{ fontSize: 16, marginTop: 10 }}>Version: </Text>
+      <Text style={{ fontSize: 16, marginTop: 10 }}>Version: {version}</Text>
     </View>
   );
 }

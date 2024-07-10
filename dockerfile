@@ -41,5 +41,7 @@ RUN echo 'server { \
 # Exposer le port 8080
 EXPOSE 8080
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 # Démarrer Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/local/bin/entrypoint.sh"]
