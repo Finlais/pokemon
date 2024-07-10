@@ -13,7 +13,7 @@ export default function HomeScreen() {
   const [pokemon, setPokemon] = useState({} as Pokemon);
   const [name, setName] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
-  let version = "";
+  const [version, setVersion] = useState<string>("");
 
   const calc = (name: string) => {
     let sum = 0;
@@ -44,8 +44,11 @@ export default function HomeScreen() {
 
   const fetchVersion = async () => {
     try {
-      const response = await fetch("/version.json");
-      version = await response.json();
+      const response = await fetch(
+        "https://service-student-arnaud-dev-djtjlindna-od.a.run.app/version.json"
+      );
+      const data = await response.json();
+      setVersion(data);
       console.log("Version:", version);
     } catch (error) {
       console.error("Error fetching version data:", error);
