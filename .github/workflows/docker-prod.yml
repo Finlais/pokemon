@@ -32,18 +32,14 @@ jobs:
         run: |
           gcloud auth configure-docker europe-west9-docker.pkg.dev
 
-      - name: Get the tag
-        id: get-tag
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
       - name: Echo the tag written by the user
-        run: echo ${{ inputs.name }}
+        run: echo ${{ inputs.tag }}
 
       - name: Docker pull
-        run: docker pull europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }}
+        run: docker pull europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.tag }}
 
       - name: Push the Docker image
-        run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }}
+        run: docker push europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.tag }}
 
       - name: Deploy to Google Cloud Run
         run: gcloud run deploy service-student-arnaud-prod --image=europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:${{ inputs.name }} --project pokedevops --region europe-west9 --allow-unauthenticated
