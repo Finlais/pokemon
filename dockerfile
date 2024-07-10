@@ -41,6 +41,10 @@ RUN echo 'server { \
 # Exposer le port 8080
 EXPOSE 8080
 
+# Ajouter les permissions d'exécution
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Copier le script d'entrée
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Démarrer Nginx
