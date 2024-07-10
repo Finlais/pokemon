@@ -44,9 +44,7 @@ export default function HomeScreen() {
 
   const fetchVersion = async () => {
     try {
-      const response = await fetch(
-        "https://service-student-arnaud-dev-djtjlindna-od.a.run.app/version.json"
-      );
+      const response = await fetch("/version.json");
       const data = await response.json();
       setVersion(data);
       console.log("Version:", version);
