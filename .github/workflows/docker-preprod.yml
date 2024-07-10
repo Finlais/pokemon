@@ -28,6 +28,9 @@ jobs:
       - name: Echo the GITHUB_SHA
         run: echo $GITHUB_SHA
 
+      - name: Docker pull
+        run: docker pull europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:$GITHUB_SHA
+
       - name: Build the Docker image
         run: docker tag europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:$GITHUB_SHA europe-west9-docker.pkg.dev/pokedevops/student-arnaud/pokemon:$TAG_NAME
 
