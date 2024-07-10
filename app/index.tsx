@@ -9,12 +9,11 @@ import {
   ScrollView,
 } from "react-native";
 
-import version from "./version.json";
-
 export default function HomeScreen() {
   const [pokemon, setPokemon] = useState({} as Pokemon);
   const [name, setName] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
+  let version = "";
 
   const calc = (name: string) => {
     let sum = 0;
@@ -42,6 +41,20 @@ export default function HomeScreen() {
   useEffect(() => {
     calc(name);
   }, [name]);
+
+  const fetchVersion = async () => {
+    try {
+      const response = await fetch("/version.json");
+      version = await response.json();
+      console.log("Version:", version);
+    } catch (error) {
+      console.error("Error fetching version data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchVersion();
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
@@ -89,7 +102,9 @@ export default function HomeScreen() {
           }}
         />
       </View>
-      <Text style={{ fontSize: 16, marginTop: 10 }}>Version: {version}</Text>
+      <Text style={{ fontSize: 16, marginTop: 10 }}>
+        Version: {version.toString()}
+      </Text>
     </View>
   );
 }
