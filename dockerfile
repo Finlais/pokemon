@@ -22,6 +22,9 @@ RUN npx expo export -p web
 # Étape 2 : servir l'application
 FROM nginx:alpine
 
+# Déclaration de la variable d'env VERSION
+ENV VERSION 'dev'
+
 # Copier les fichiers de l'application construits dans le répertoire par défaut de Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
