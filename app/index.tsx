@@ -102,9 +102,7 @@ export default function HomeScreen() {
           }}
         />
       </View>
-      <Text style={{ fontSize: 16, marginTop: 10 }}>
-        Version: {version.toString()}
-      </Text>
+      <Text style={{ fontSize: 16, marginTop: 10 }}>Version: {version}</Text>
     </View>
   );
 }
